@@ -1,0 +1,12 @@
+import os
+
+def list_files_vulnerable():
+    """
+    Vulnerable to command injection.
+    An attacker can input "; cat /etc/passwd" to list system files.
+    """
+    filename = input("Enter the filename to list: ")
+    os.system("ls -l " + filename)
+
+if __name__ == "__main__":
+    list_files_vulnerable()
