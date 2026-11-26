@@ -1,0 +1,23 @@
+from flask import Flask, request, escape
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return '''
+        <form action="/display" method="GET">
+            <label for="input_text">Enter something:</label><br>
+            <input type="text" id="input_text" name="user_input"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    '''
+
+@app.route('/display')
+def display():
+    user_input = request.args.get('user_input', '')
+    # This line is intentionally vulnerable for demonstration purposes
+    # It directly embeds user_input into the HTML without sanitization
+    return f'<h1>You entered: {user_input}</h1>'
+
+if __name__ == '__main__':
+    app.run(debug=True)
